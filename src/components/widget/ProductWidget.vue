@@ -1,14 +1,26 @@
 <template>
-  <div>
-    <div v-for="widget in productWidgets" :key="widget.id">
-      {{widget}}
+  <div class="w-3/4 bg-gray-100 drop-shadow-[0_10px_10px_rgba(0,0,0,0.12)] p-9 rounded-lg divide-y-2 divide-gray">
+    <h3 class="font-bold text-3xl pb-2">Per product widgets</h3>
+    <div class="pt-4 space-x-8 flex flex-row justify-between">
+      <div v-for="widget in styledWidgets" :key="widget.id" class="w-1/3">
+        {{ widget }}
+        <div :class="widget.styles.bgClass" class="rounded-md px-4 py-2.5 flex flex-row items-center space-x-4">
+          <TheLogo :iconFillColor="widget.styles.logoFill" />
+          <div>
+            <p class="text-xs font-normal" :class="widget.styles.textClass">This product {{ widget.action }}</p>
+            <p class="text-lg font-bold" :class="widget.styles.textClass">{{ widget.amount }} {{ widget.type }}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useStore } from 'vuex';
+import TheLogo from './elements/TheLogo.vue';
+import { getStylesForColor, type WidgetColor } from '../../types/color';
 
 interface Widget {
   id: number;
@@ -17,7 +29,7 @@ interface Widget {
   action: string;
   active: boolean;
   linked: boolean;
-  selectedColor: string;
+  selectedColor: WidgetColor;
 }
 
 const productWidgets = ref<Widget[]>([]);
@@ -29,5 +41,11 @@ onMounted(() => {
   });
 });
 
+const styledWidgets = computed(() => {
+  return productWidgets.value.map(widget => ({
+    ...widget,
+    styles: getStylesForColor(widget.selectedColor)
+  }));
+});
 
 </script>
