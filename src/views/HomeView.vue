@@ -1,5 +1,5 @@
 <template>
-  <main class="container min-w-[1440px] mx-auto px-4">
+  <main class="container max-w-[1440px] mx-auto px-4">
     <div class="pt-16">
       <ProductWidget />
     </div>

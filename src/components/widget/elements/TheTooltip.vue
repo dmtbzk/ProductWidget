@@ -1,5 +1,5 @@
 <template>
-  <div class="relative group" @mouseleave="closeTooltip">
+  <div class="relative group z-50" @mouseleave="closeTooltip">
     <button @mouseover="openTooltip" class="pl-1">
       <img src="@/assets/tooltip.svg" class="w-4 h-4">
     </button>
