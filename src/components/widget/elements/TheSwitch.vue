@@ -21,7 +21,7 @@
 <script setup lang="ts">
 import { defineProps, defineEmits } from 'vue';
 
-const props = defineProps<{
+defineProps<{
   widgetActivated: boolean;
   widgetId: number;
 }>();
